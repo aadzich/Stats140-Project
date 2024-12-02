@@ -57,3 +57,4 @@ tukey_sig <- tukey_pop_actor$Actor %>%
   filter(`p adj` < .05)
 
 tukey_sig
+# eyeballing looks like tom hanks one of the more sig diff actors
