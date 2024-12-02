@@ -1,7 +1,6 @@
 # revenue across top stars
 library(tidyverse)
 library(dplyr)
-library(multcomp)
 
 # import data
 imdb <- read.csv("CURRENT_clean_imdbmovies_version5.csv", header = TRUE, stringsAsFactors = FALSE)
@@ -27,7 +26,7 @@ avg_actor_imdb <- actor_imdb %>%
   summarize(AvgRev = mean(Revenue), MovieCount = n())
 glimpse(actor_imdb)
 
-# total of 2709 actors
+# total of 2709 unique top stars
 
 # approach 1: limit analysis to only the very top actors 
 # (who have acted in at least 8 top movies)
