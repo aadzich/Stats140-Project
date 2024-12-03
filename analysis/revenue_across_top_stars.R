@@ -62,3 +62,10 @@ tukey_sig
 
 
 # grped anova across genres
+ggplot(pop_actor_imdb, aes(x = Actor, y = Revenue, fill = Actor)) +
+  geom_boxplot() +
+  labs(title = "Revenue Distribution Across Different Actors",
+       x = "Actor",
+       y = "Revenue") +
+  theme(text.x = element_text(angle = 45)) +
+  theme_minimal()

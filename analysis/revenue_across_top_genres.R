@@ -34,7 +34,7 @@ tukey_genre_pop$Broad_Genre
 # Boxplot to compare revenue across genres
 ggplot(pop_genre_imdb, aes(x = Broad_Genre, y = Revenue, fill = Broad_Genre)) +
   geom_boxplot() +
-  labs(title = "Revenue Distribution Across Different Genres",
+  labs(title = "Revenue Distribution Across Popular Broad Genres",
        x = "Genre",
        y = "Revenue") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
