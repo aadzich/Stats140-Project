@@ -11,6 +11,8 @@ imdb <- imdb %>%
   mutate(
     Broad_Genre = as.factor(Broad_Genre)
   )
+levels(imdb$Broad_Genre)
+table(imdb$Broad_Genre)
 
 # now want to encode actors, but consistent across columns
 # pivot longer to be by actors, and find avg rev
@@ -57,3 +59,6 @@ tukey_sig <- tukey_pop_actor$Actor %>%
 
 tukey_sig
 # eyeballing looks like tom hanks one of the more sig diff actors
+
+
+# grped anova across genres
