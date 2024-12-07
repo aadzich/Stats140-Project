@@ -4,15 +4,11 @@ library(dplyr)
 
 # import data
 imdb <- read.csv("CURRENT_clean_imdbmovies_version5.csv", header = TRUE, stringsAsFactors = FALSE)
-glimpse(imdb)
 
 # turn genres into factors
 imdb <- imdb %>% 
   mutate(
-    Broad_Genre = as.factor(Broad_Genre)
-  )
-levels(imdb$Broad_Genre)
-table(imdb$Broad_Genre)
+    Broad_Genre = as.factor(Broad_Genre))
 
 # now want to encode actors, but consistent across columns
 # pivot longer to be by actors, and find avg rev
@@ -30,11 +26,11 @@ glimpse(actor_imdb)
 
 # total of 2709 unique top stars
 
-# approach 1: limit analysis to only the very top actors 
-# (who have acted in at least 8 top movies)
+# limit analysis to only the very top actors 
+# (who have acted in at least 10 top movies)
 pop_actor_imdb <- actor_imdb %>% 
   group_by(Actor) %>% 
-  filter(n() >= 8) %>% 
+  filter(n() >= 10) %>% 
   ungroup() %>% 
   mutate(Actor = as.factor(Actor))
 pop_actor_imdb <- droplevels(pop_actor_imdb)
@@ -44,6 +40,7 @@ pop_actor_imdb
 # in revenue between movies featuring different actors
 anova_pop_actor <- aov(Revenue ~ Actor, data = pop_actor_imdb)
 summary(anova_pop_actor)
+summary(anova_pop_actor)[[1]][["Pr(>F)"]][1]
 # p value is significant!
 
 table(pop_actor_imdb$Actor)
@@ -67,5 +64,8 @@ ggplot(pop_actor_imdb, aes(x = Actor, y = Revenue, fill = Actor)) +
   labs(title = "Revenue Distribution Across Different Actors",
        x = "Actor",
        y = "Revenue") +
-  theme(text.x = element_text(angle = 45)) +
-  theme_minimal()
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) + 
+  scale_y_continuous(labels=function(x) format(x, big.mark = ",", scientific = FALSE))
+
+
