@@ -26,9 +26,18 @@ pop_genre_imdb <- imdb %>%
 # run ANOVA and Tukey w this filtered data
 anova_genre_pop <- aov(Revenue ~ Broad_Genre, data = pop_genre_imdb)
 summary(anova_genre_pop)
+shapiro.test(residuals(anova_genre_pop))
+library(car)
+leveneTest(Revenue ~ Broad_Genre, data = pop_genre_imdb)
+
 
 tukey_genre_pop <- TukeyHSD(anova_genre_pop)
 tukey_genre_pop$Broad_Genre
+
+# filter only significant comparisons
+tukey_sig <- tukey_pop_actor$Actor %>% 
+  as.data.frame() %>% 
+  filter(`p adj` < .05)
 
 # visualize
 # Boxplot to compare revenue across genres
